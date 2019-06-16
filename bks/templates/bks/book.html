@@ -1,0 +1,43 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bks/main3.css' %}">
+
+<div class="pageheader">
+<h1>{{ book.book_title }} {{book.book_author}}</h1>
+</div>
+
+{% if error %}
+<p style="font-size: 50px;color: #8B0000;"align="center">{{ error }}</p>
+{% endif %}
+<div class="layer1">
+<p style="color:black;">{{ book.book_description}}</a></p>
+</div>
+
+<form action="{% url 'bks:book_by_id' book.id %}" method="POST">
+{% csrf_token %}
+<textarea name="text" maxlength="4096" rows="10" cols="80" placeholder="Напишите ваше мнение о книге">{{ opinion_text }}</textarea>
+<br/>
+<input type="submit" value="Отправить"></input>
+</form>
+
+
+<form action="{% url 'bks:vote' book.id %}" method="post">
+{% csrf_token %}
+{% if book.opinion_set.all%}
+{% for opinion in book.opinion_set.all %}
+<input type="radio" name="opinion" id="opinion{{ forloop.counter }}" value="{{ opinion.id }}">
+<label for="opinion{{ forloop.counter }}" style="color: black;"><strong>{{ opinion.opinion_text }}</strong></label><br>
+{% endfor %}
+{% else %}
+<p style="color: black;"><strong>Пока мнение никто не оставил, вы можете стать первым!</strong></p>
+{% endif %}
+<input type="submit" value="Проголосовать">
+</form>
+
+
+<div><a href="{%url 'bks:index'%}" class="button7">Вернуться к просмотру книг</a></div>
+
+
+
+
+
+

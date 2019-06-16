@@ -1,0 +1,35 @@
+{% load staticfiles%}
+<link rel="stylesheet" type="text/css" href="{% static 'bks/main3.css' %}" />
+
+<div class="pageheader">
+<h1> Доступные книги</h1>
+</div>
+{% if message %}
+<p><strong>{{ message }}</strong></p>
+{% endif %}
+
+<ul class="list4b">
+    {% if latest_book_list %}
+{% for book in latest_book_list %}
+<li><a href="/bks/{{ book.id }}/">{{ book.book_title}} {{book.book_author}}</a></li>
+{% endfor %}
+
+{% else %}
+<li>Нет доступных книг.</li>
+{% endif %}
+</ul>
+</div>
+
+<div class="layer">
+<p align= "right"><font  face="Tahoma">
+    Приветствуем тебя, друг!
+    <br>
+    Здесь ты можешь узнать больше об интересующих тебя книгах: прочиать
+    описание, а так же сможешь узнать мнение других читателей.
+    <br>
+    Этот портал для тех, кто не придерживается определенных жанров при чтении, кто после сложнейшей "Войны и мир" захочет прочитать
+    о волшебстве Гарри Поттера, а после решит закончить это дело антиутопическим "Мы" Замятина.
+    <br>
+    Приятного просмотра!
+</p>
+</div>

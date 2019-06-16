@@ -1,0 +1,23 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'bks/main3.css' %}">
+
+<h1>{{ book.book_title }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'bks:vote' book.id %}" method="post">
+{% csrf_token %}
+{% for opinion in book.opinion_set.all %}
+<input type="radio" name="opinion" id="opinion{{ forloop.counter }}" value="{{ opinion.id }}">
+<label for="opinion{{ forloop.counter }}">{{ opinion.opinion_text }}</label><br>
+{% endfor %}
+<input type="submit" value="Vote">
+</form>
+
+
+<div class="layer">
+{% for book in latest_book_list %}
+<p><a href="/bks/{{ book.id }}/">{{ book.book_description}}</a></p>
+{% endfor %}
+</div>
